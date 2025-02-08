@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>أداة تحويل كلمة السر</title>
+  <script>
+    function convertPassword() {
+      // جدول التحويل بناءً على تخطيط لوحة المفاتيح العربية
+      const mapping = {
+        'ض': 'Q', 'ص': 'W', 'ث': 'E', 'ق': 'R', 'ف': 'T', 'غ': 'Y',
+        'ع': 'U', 'ه': 'I', 'خ': 'O', 'ح': 'P', 'ج': '[', 'د': ']',
+        'ش': 'A', 'س': 'S', 'ي': 'D', 'ب': 'F', 'ل': 'G', 'ا': 'H',
+        'ت': 'J', 'ن': 'K', 'م': 'L', 'ك': ';', 'ط': "'",
+        'ئ': 'Z', 'ء': 'X', 'ؤ': 'C', 'ر': 'V',
+        // التعامل مع تركيبة "لا" كحرف واحد
+        'لا': 'B',
+        'ى': 'N', 'ة': 'M', 'و': ',', 'ز': '.', 'ظ': '/'
+      };
+
+      let arabicPassword = document.getElementById("arabicPass").value;
+      let result = "";
+      let i = 0;
+      // معالجة النص حرف بحرف مع مراعاة تركيبة "لا"
+      while (i < arabicPassword.length) {
+        if (arabicPassword.substring(i, i + 2) === "لا") {
+          result += mapping["لا"];
+          i += 2;
+        } else {
+          let ch = arabicPassword.charAt(i);
+          result += mapping[ch] || ch;
+          i++;
+        }
+      }
+      document.getElementById("result").innerText = "الناتج: " + result;
+    }
+  </script>
+</head>
+<body>
+  <h2>أداة تحويل كلمة السر من العربية للإنجليزية</h2>
+  <input type="text" id="arabicPass" placeholder="أدخل كلمة السر بالعربية">
+  <button onclick="convertPassword()">تحويل</button>
+  <p id="result"></p>
+</body>
+</html>
